@@ -1,0 +1,201 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* PWC Core Colors */
+  --pwc-orange-500: #FD5108;
+  /* Core orange */
+  --pwc-orange-400: #FE7C39;
+  --pwc-orange-300: #FFAA72;
+  --pwc-orange-200: #FFCDA8;
+  --pwc-orange-100: #FFE8D4;
+  --pwc-orange-50: #FFF5ED;
+
+  /* PWC Grey Palette */
+  --pwc-grey-500: #A1A8B3;
+  --pwc-grey-400: #B5BCC4;
+  --pwc-grey-300: #CBD1D6;
+  --pwc-grey-200: #DFE3E6;
+  --pwc-grey-100: #EEEFF1;
+  --pwc-grey-50: #F5F7F8;
+
+  /* PWC Black */
+  --pwc-black: #1A1A1A;
+  --pwc-text-dark: #2D2D2D;
+
+  /* Shadcn Variables with PWC Theme */
+  --background: hsl(0 0% 100%);
+  --foreground: #1A1A1A;
+  --card: #F5F7F8;
+  --card-foreground: #1A1A1A;
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: #1A1A1A;
+  --primary: #FD5108;
+  /* PWC Orange */
+  --primary-foreground: hsl(0 0% 100%);
+  --secondary: #A1A8B3;
+  /* PWC Grey */
+  --secondary-foreground: hsl(0 0% 100%);
+  --muted: #EEEFF1;
+  /* PWC Grey 100 */
+  --muted-foreground: #2D2D2D;
+  --accent: #FFE8D4;
+  /* PWC Orange 100 */
+  --accent-foreground: #FD5108;
+  --destructive: hsl(0 84% 60%);
+  --destructive-foreground: hsl(0 0% 100%);
+  --border: #DFE3E6;
+  /* PWC Grey 200 */
+  --input: #F5F7F8;
+  /* PWC Grey 50 */
+  --ring: #FD5108;
+  /* PWC Orange */
+
+  /* PWC Chart Colors */
+  --chart-1: #FD5108;
+  /* PWC Orange */
+  --chart-2: #FE7C39;
+  /* PWC Orange 400 */
+  --chart-3: #FFAA72;
+  /* PWC Orange 300 */
+  --chart-4: #A1A8B3;
+  /* PWC Grey 500 */
+  --chart-5: #B5BCC4;
+  /* PWC Grey 400 */
+
+  /* Sidebar Colors */
+  --sidebar: #F5F7F8;
+  --sidebar-foreground: #1A1A1A;
+  --sidebar-primary: #FD5108;
+  --sidebar-primary-foreground: hsl(0 0% 100%);
+  --sidebar-accent: #FFE8D4;
+  --sidebar-accent-foreground: #FD5108;
+  --sidebar-border: #DFE3E6;
+  --sidebar-ring: #FD5108;
+
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: Georgia, serif;
+  --font-mono: 'Source Code Pro', Menlo, monospace;
+  --radius: 0.75rem;
+
+  /* Sector-specific colors with PWC palette */
+  --bank: #FD5108;
+  /* PWC Orange for consistency */
+  --finance: #A1A8B3;
+  /* PWC Grey */
+  --ithr: #FE7C39;
+  /* PWC Orange 400 */
+
+  /* PWC Shadows */
+  --shadow-pwc: 0 1px 3px rgba(253, 81, 8, 0.1), 0 1px 2px rgba(253, 81, 8, 0.06);
+  --shadow-pwc-lg: 0 4px 6px rgba(253, 81, 8, 0.1), 0 2px 4px rgba(253, 81, 8, 0.06);
+}
+
+.dark {
+  --background: #1A1A1A;
+  --foreground: #F5F7F8;
+  --card: #2D2D2D;
+  --card-foreground: #F5F7F8;
+  --popover: #1A1A1A;
+  --popover-foreground: #F5F7F8;
+  --primary: #FD5108;
+  /* PWC Orange remains same */
+  --primary-foreground: hsl(0 0% 100%);
+  --secondary: #A1A8B3;
+  --secondary-foreground: #1A1A1A;
+  --muted: #2D2D2D;
+  --muted-foreground: #A1A8B3;
+  --accent: #2D2D2D;
+  --accent-foreground: #FD5108;
+  --destructive: hsl(0 84% 60%);
+  --destructive-foreground: hsl(0 0% 100%);
+  --border: #A1A8B3;
+  --input: #2D2D2D;
+  --ring: #FD5108;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+
+  /* Material shadows */
+  .shadow-material {
+    box-shadow: var(--shadow-material);
+  }
+
+  .shadow-material-lg {
+    box-shadow: var(--shadow-material-lg);
+  }
+
+  /* Sector colors */
+  .bg-bank {
+    background-color: var(--bank);
+  }
+
+  .text-bank {
+    color: var(--bank);
+  }
+
+  .border-bank {
+    border-color: var(--bank);
+  }
+
+  .hover\:border-bank:hover {
+    border-color: var(--bank);
+  }
+
+  .hover\:bg-green-50:hover {
+    background-color: hsl(150 100% 97%);
+  }
+
+  .bg-finance {
+    background-color: var(--finance);
+  }
+
+  .text-finance {
+    color: var(--finance);
+  }
+
+  .border-finance {
+    border-color: var(--finance);
+  }
+
+  .hover\:border-finance:hover {
+    border-color: var(--finance);
+  }
+
+  .hover\:bg-purple-50:hover {
+    background-color: hsl(283 68% 97%);
+  }
+
+  .bg-ithr {
+    background-color: var(--ithr);
+  }
+
+  .text-ithr {
+    color: var(--ithr);
+  }
+
+  .border-ithr {
+    border-color: var(--ithr);
+  }
+
+  .hover\:border-ithr:hover {
+    border-color: var(--ithr);
+  }
+
+  .hover\:bg-orange-50:hover {
+    background-color: hsl(33 100% 97%);
+  }
+}
+
+/* body{
+  overflow: hidden
+} */

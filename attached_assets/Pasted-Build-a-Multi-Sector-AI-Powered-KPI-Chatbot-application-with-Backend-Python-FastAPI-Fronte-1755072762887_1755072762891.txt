@@ -1,0 +1,55 @@
+Build a Multi-Sector AI-Powered KPI Chatbot application with:
+	•	Backend: Python (FastAPI)
+	•	Frontend: React
+	•	Chatbot: Google Gemini integration (schema-aware)
+	•	Output Format: Tabular KPI results + Graph visualization (charts)
+Core Features:
+	1.	Secure Login System
+	◦	Predefined admin accounts for sectors: Bank, Finance, IT HR Portal.
+	◦	Passwords must be stored using bcrypt hashing.
+	◦	JWT authentication for session management.
+	◦	Role & sector stored in JWT claims.
+	2.	Database Connection Flow
+	◦	After login, show a dashboard with “Connect Database” option.
+	◦	Database connection form: host, port, DB name, username, password.
+	◦	On successful connection, fetch schema from the uploaded(connected) database.
+Along with the creation of schema from the connected DB, the user will also get a set of potential KPIs for their reference. User can add/edit/remove KPIs.
+	◦	Schema is stored in session only (not persisted).
+	◦	Connection is closed on logout.
+	3.	Gemini Schema Sync
+	◦	Send extracted schema to Google Gemini API as context.
+	◦	Allow user to ask natural language KPI queries.
+	◦	AI generates safe parameterized SQL queries based on schema.
+	◦	Execute queries securely in backend.
+	4.	Chatbot Output Requirements
+	◦	Show results in a table format.
+	◦	Show results in a graph (bar, line, or pie) using Chart.js or Recharts.
+	◦	User can toggle between table and graph view.
+	5.	Session Rules
+	◦	On logout, clear JWT, close DB connection, and remove schema from session.
+	◦	On new login, admin must reconnect database before querying KPIs.
+Backend Requirements (FastAPI):
+	•	Endpoints: /login, /connect-db, /fetch-schema, /query-kpi, /logout.
+	•	Bcrypt for password hashing & verification.
+	•	JWT for authentication.
+	•	psycopg2 / SQLAlchemy for DB connection & queries.
+	•	Parameterized queries to prevent SQL injection.
+	•	Session-level storage for schema.
+	•	API to return query results in JSON (both table data & chart-ready format).
+Frontend Requirements (React):
+	•	Login page → Dashboard → DB connection form → Chatbot interface.
+	•	Chatbot UI for natural language KPI queries.
+	•	Display response table with pagination.
+	•	Display charts using Chart.js or Recharts.
+	•	Logout button to end session and clear stored data.
+Additional Notes:
+	•	Each sector should have isolated data and schema.
+	•	Output should be visually appealing with proper styling.
+	•	Must follow best security practices for password storage and DB connections.
+	•	Include environment variable config for API keys, DB credentials, and JWT secret.
+Deliverables:
+	•	Fully functional backend in Python (FastAPI).
+	•	Fully functional frontend in React.
+	•	Integrated Google Gemini schema-based chatbot.
+	•	Table + chart display of KPI results.
+	•	All code should be production-ready with comments.
