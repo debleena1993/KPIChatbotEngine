@@ -17,13 +17,9 @@ export default function ResultsDisplay({ results }: ResultsDisplayProps) {
   const [showInsights, setShowInsights] = useState(false);
   const [copyButtonText, setCopyButtonText] = useState('Copy');
 
-  // Extract data from current API response format
-  const table_data = results.data || [];
-  const chart_data_array = results.chart_data || [];
-  const chart_config = results.chart_config;
-  const columns = results.columns || [];
-  const row_count = table_data.length;
-  const isLangGraphEnhanced = results.langgraph_enhanced || false;
+  const { table_data, chart_data, columns, row_count, execution_time } = results.results;
+  const isLangGraphEnhanced = (results as any).langgraph_enhanced || false;
+  const intelligentConfig = chart_data?.intelligent_config;
 
   const formatValue = (value: any, columnName?: string): string => {
     if (value === null || value === undefined) {
@@ -64,8 +60,8 @@ export default function ResultsDisplay({ results }: ResultsDisplayProps) {
 
     const csvContent = [
       columns.join(','),
-      ...table_data.map((row: any) => 
-        columns.map((col: string) => {
+      ...table_data.map(row => 
+        columns.map(col => {
           const value = row[col];
           // Escape quotes and wrap in quotes if contains comma
           const stringValue = String(value || '');
@@ -104,7 +100,7 @@ export default function ResultsDisplay({ results }: ResultsDisplayProps) {
   };
 
   const renderChart = () => {
-    if (!chart_data_array || chart_data_array.length === 0) {
+    if (!chart_data.data || chart_data.data.length === 0) {
       return (
         <div className="h-64 flex items-center justify-center text-gray-500">
           <div className="text-center">
@@ -117,14 +113,14 @@ export default function ResultsDisplay({ results }: ResultsDisplayProps) {
 
     const chartColors = ['#FD5108', '#FE7C39', '#FFAA72', '#A1A8B3', '#B5BCC4']; // PWC color palette
 
-    switch (chart_config?.type || 'bar') {
+    switch (chart_data.type) {
       case 'line':
         return (
           <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={chart_data_array}>
+            <LineChart data={chart_data.data}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis 
-                dataKey="name" 
+                dataKey={chart_data.xAxis} 
                 tick={{ fontSize: 12 }}
                 angle={-45}
                 textAnchor="end"
@@ -133,7 +129,7 @@ export default function ResultsDisplay({ results }: ResultsDisplayProps) {
               <Tooltip />
               <Line 
                 type="monotone" 
-                dataKey="value" 
+                dataKey={chart_data.yAxis} 
                 stroke={chartColors[0]} 
                 strokeWidth={2}
                 dot={{ fill: chartColors[0] }}
@@ -147,16 +143,16 @@ export default function ResultsDisplay({ results }: ResultsDisplayProps) {
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
               <Pie
-                data={chart_data_array}
+                data={chart_data.data}
                 cx="50%"
                 cy="50%"
                 labelLine={false}
                 label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
                 outerRadius={80}
                 fill="#8884d8"
-                dataKey="value"
+                dataKey={chart_data.yAxis}
               >
-                {chart_data_array.map((_: any, index: number) => (
+                {chart_data.data.map((_, index) => (
                   <Cell key={`cell-${index}`} fill={chartColors[index % chartColors.length]} />
                 ))}
               </Pie>
@@ -168,24 +164,24 @@ export default function ResultsDisplay({ results }: ResultsDisplayProps) {
       default: // bar chart
         return (
           <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={chart_data_array}>
+            <BarChart data={chart_data.data}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis 
-                dataKey="name" 
+                dataKey={chart_data.xAxis} 
                 tick={{ fontSize: 12 }}
                 angle={-45}
                 textAnchor="end"
               />
               <YAxis tick={{ fontSize: 12 }} />
               <Tooltip />
-              <Bar dataKey="value" fill={chartColors[0]} />
+              <Bar dataKey={chart_data.yAxis} fill={chartColors[0]} />
             </BarChart>
           </ResponsiveContainer>
         );
     }
   };
 
-  if (!table_data.length && !chart_data_array?.length) {
+  if (!table_data.length && !chart_data.data?.length) {
     return (
       <Card>
         <CardContent className="p-6 text-center">
@@ -314,7 +310,7 @@ export default function ResultsDisplay({ results }: ResultsDisplayProps) {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    {columns.map((column: string) => (
+                    {columns.map((column) => (
                       <TableHead key={column} className="font-medium">
                         {column}
                       </TableHead>
@@ -322,9 +318,9 @@ export default function ResultsDisplay({ results }: ResultsDisplayProps) {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {table_data.slice(0, 100).map((row: any, index: number) => (
+                  {table_data.slice(0, 100).map((row, index) => (
                     <TableRow key={index} data-testid={`table-row-${index}`}>
-                      {columns.map((column: string) => (
+                      {columns.map((column) => (
                         <TableCell key={column} className="py-2">
                           {formatValue(row[column], column)}
                         </TableCell>
@@ -368,7 +364,7 @@ export default function ResultsDisplay({ results }: ResultsDisplayProps) {
 
             </div>
             <div className="flex items-center space-x-2 text-xs text-gray-500">
-              <span>{row_count} rows returned</span>
+              <span>Query executed in {execution_time}s</span>
             </div>
           </div>
           

@@ -41,14 +41,8 @@ The system is built as a full-stack web application with a React frontend and No
 - ✓ **PYTHON FILES CLEANED UP** - Removed unused Python backend files (main.py, gemini.py, auth.py, database.py, models.py, requirements.txt, pyproject.toml) since application runs entirely on Node.js/TypeScript stack (August 19, 2025)
 - ✓ **DATABASE RECONNECTION MODAL CREATED** - Replaced browser prompt with professional modal for database reconnection featuring password visibility toggle, form validation, connection details display, and loading states (August 19, 2025)
 - ✓ **SQL QUERY VISIBILITY IMPROVED** - Modified ResultsDisplay component to show SQL queries expanded by default instead of requiring user to click expand button for better transparency (August 19, 2025)
-- ✓ **CONVERTED TO PYTHON FASTAPI** - Successfully converted the entire Node.js/Express backend to Python FastAPI while maintaining all functionality including authentication, database connections, AI integration, and API endpoints (August 19, 2025)
-- ✓ **PYTHON BACKEND FULLY OPERATIONAL** - Python FastAPI server now running on port 5000 with Google Gemini AI integration for KPI suggestions and SQL generation, all authentication and database features working properly (August 19, 2025)
-- ✓ **KPI GENERATION ERROR FIXED** - Resolved JSON parsing errors in KPI suggestions by adding proper error handling and fallback mechanisms when AI responses are empty or malformed (August 19, 2025)
-- ✓ **API ROUTING FIXED** - Corrected route ordering so API endpoints are processed before SPA catch-all routes, fixing 404 errors on health checks and database configuration endpoints (August 19, 2025)
-- ✓ **FRONTEND SERVING COMPLETED** - Added static file serving to Python FastAPI backend for proper React frontend delivery with asset mounting and SPA routing support (August 19, 2025)
-- ✓ **SQL GENERATION ISSUES RESOLVED** - Fixed empty AI responses and "Invalid or unsafe SQL query" errors by adding robust error handling, empty response validation, and enhanced fallback SQL generation with proper parameter handling (August 19, 2025)
-- ✓ **AI-POWERED QUERIES WORKING** - Google Gemini AI now successfully generates safe SQL queries from natural language with proper COALESCE and NULLIF protections, returning accurate results with chart data generation (August 19, 2025)
-- ✓ **COMPLETE PYTHON MIGRATION SUCCESSFUL** - Fully converted Node.js/Express backend to Python FastAPI with all features working: authentication, database connections, AI integration, KPI suggestions, SQL generation, and frontend serving (August 19, 2025)
+- ✓ **BACKEND CONVERTED TO PYTHON** - Successfully converted entire backend from Node.js/Express to Python/FastAPI while preserving all functionality including authentication, database management, and AI integration (August 19, 2025)
+- ✓ **PYTHON SERVER MANAGER CREATED** - Built comprehensive Python-based server management system in services/index.py that coordinates both FastAPI backend (port 5001) and Vite frontend (port 5000) with automatic proxy setup (August 19, 2025)
 
 # User Preferences
 
@@ -66,16 +60,22 @@ Preferred communication style: Simple, everyday language.
 - **Form Handling**: React Hook Form with Zod validation
 
 ## Backend Architecture
-The project has been converted from Node.js to Python FastAPI:
+The project shows evidence of both Node.js and Python backend implementations:
 
-### Python FastAPI Backend (Active)
-- **Framework**: FastAPI for REST API endpoints
+### Node.js/Express Backend
+- **Framework**: Express.js with TypeScript
+- **Development**: Vite integration for hot reload in development
+- **Storage Interface**: Abstract storage interface with in-memory implementation
+- **Session Management**: Basic session handling structure
+
+### Python FastAPI Backend (Primary)
+- **Framework**: FastAPI for REST API endpoints running on port 5001
 - **Authentication**: JWT tokens with bcrypt password hashing
 - **Database**: PostgreSQL with psycopg2 for database connections
-- **AI Integration**: Google Gemini API with LangChain for natural language to SQL conversion
+- **AI Integration**: Google Gemini API for natural language to SQL conversion
 - **Session Storage**: In-memory session storage for database connections and schemas
-- **Server**: Uvicorn ASGI server running on port 5000
-- **Configuration**: Environment variable based configuration with Google API key integration
+- **Server Management**: Python-based server manager (services/index.py) coordinates backend and frontend
+- **Process Coordination**: Manages both FastAPI backend and Vite frontend with automatic proxy setup
 
 ## Database Design
 - **ORM**: Drizzle ORM with PostgreSQL dialect
