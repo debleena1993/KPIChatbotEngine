@@ -1,17 +1,8 @@
 # Overview
 
-Run Python backend (FastAPI)
-```bash
-uvicorn backend.main:app --host 0.0.0.0 --port 5000
-```
-
-Build/start frontend (Vite)
-```bash
-npm run dev
-```
 This is a Multi-Sector AI-Powered KPI Chatbot application designed for different business sectors (Banking, Finance, and IT HR). The application allows sector-specific administrators to connect to their databases, automatically extract schemas, and query KPIs using natural language through Google Gemini AI integration. Results are displayed in both tabular format and interactive charts.
 
-The system is built as a full-stack web application with a React frontend and Python FastAPI backend. The application features automatic database configuration management that updates config files when users input database credentials and automatically extracts schemas from connected databases.
+The system is built as a full-stack web application with a React frontend and Node.js/Express backend. The application features automatic database configuration management that updates config files when users input database credentials and automatically extracts schemas from connected databases.
 
 ## Recent Changes (August 2025)
 - ✓ Implemented automatic database configuration system with persistent JSON configuration files
@@ -67,6 +58,14 @@ Preferred communication style: Simple, everyday language.
 - **Form Handling**: React Hook Form with Zod validation
 
 ## Backend Architecture
+The project shows evidence of both Node.js and Python backend implementations:
+
+### Node.js/Express Backend
+- **Framework**: Express.js with TypeScript
+- **Development**: Vite integration for hot reload in development
+- **Storage Interface**: Abstract storage interface with in-memory implementation
+- **Session Management**: Basic session handling structure
+
 ### Python FastAPI Backend
 - **Framework**: FastAPI for REST API endpoints
 - **Authentication**: JWT tokens with bcrypt password hashing
@@ -81,7 +80,7 @@ Preferred communication style: Simple, everyday language.
 - **Connection Strategy**: Automatic database configuration management with persistent JSON config files
 - **Schema Extraction**: Real-time introspection of connected databases using SQL information_schema queries
 - **Multi-Database Support**: Users can configure and switch between multiple database connections
-- **Configuration Persistence**: Database credentials and extracted schemas stored in `backend/config/database.json`
+- **Configuration Persistence**: Database credentials and extracted schemas stored in `server/config/database.json`
 
 ## Authentication & Authorization
 - **Multi-Sector Login**: Predefined admin accounts for three sectors (bank, finance, ithr)
