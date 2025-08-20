@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+dist/
+build/
+.DS_Store
+backend/.env
+backend/config/database.json
+

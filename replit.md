@@ -1,8 +1,17 @@
 # Overview
 
+Run Python backend (FastAPI)
+```bash
+uvicorn backend.main:app --host 0.0.0.0 --port 5000
+```
+
+Build/start frontend (Vite)
+```bash
+npm run dev
+```
 This is a Multi-Sector AI-Powered KPI Chatbot application designed for different business sectors (Banking, Finance, and IT HR). The application allows sector-specific administrators to connect to their databases, automatically extract schemas, and query KPIs using natural language through Google Gemini AI integration. Results are displayed in both tabular format and interactive charts.
 
-The system is built as a full-stack web application with a React frontend and Node.js/Express backend. The application features automatic database configuration management that updates config files when users input database credentials and automatically extracts schemas from connected databases.
+The system is built as a full-stack web application with a React frontend and Python FastAPI backend. The application features automatic database configuration management that updates config files when users input database credentials and automatically extracts schemas from connected databases.
 
 ## Recent Changes (August 2025)
 - ✓ Implemented automatic database configuration system with persistent JSON configuration files
@@ -41,8 +50,6 @@ The system is built as a full-stack web application with a React frontend and No
 - ✓ **PYTHON FILES CLEANED UP** - Removed unused Python backend files (main.py, gemini.py, auth.py, database.py, models.py, requirements.txt, pyproject.toml) since application runs entirely on Node.js/TypeScript stack (August 19, 2025)
 - ✓ **DATABASE RECONNECTION MODAL CREATED** - Replaced browser prompt with professional modal for database reconnection featuring password visibility toggle, form validation, connection details display, and loading states (August 19, 2025)
 - ✓ **SQL QUERY VISIBILITY IMPROVED** - Modified ResultsDisplay component to show SQL queries expanded by default instead of requiring user to click expand button for better transparency (August 19, 2025)
-- ✓ **BACKEND CONVERTED TO PYTHON** - Successfully converted entire backend from Node.js/Express to Python/FastAPI while preserving all functionality including authentication, database management, and AI integration (August 19, 2025)
-- ✓ **PYTHON SERVER MANAGER CREATED** - Built comprehensive Python-based server management system in services/index.py that coordinates both FastAPI backend (port 5001) and Vite frontend (port 5000) with automatic proxy setup (August 19, 2025)
 
 # User Preferences
 
@@ -60,22 +67,12 @@ Preferred communication style: Simple, everyday language.
 - **Form Handling**: React Hook Form with Zod validation
 
 ## Backend Architecture
-The project shows evidence of both Node.js and Python backend implementations:
-
-### Node.js/Express Backend
-- **Framework**: Express.js with TypeScript
-- **Development**: Vite integration for hot reload in development
-- **Storage Interface**: Abstract storage interface with in-memory implementation
-- **Session Management**: Basic session handling structure
-
-### Python FastAPI Backend (Primary)
-- **Framework**: FastAPI for REST API endpoints running on port 5001
+### Python FastAPI Backend
+- **Framework**: FastAPI for REST API endpoints
 - **Authentication**: JWT tokens with bcrypt password hashing
 - **Database**: PostgreSQL with psycopg2 for database connections
 - **AI Integration**: Google Gemini API for natural language to SQL conversion
 - **Session Storage**: In-memory session storage for database connections and schemas
-- **Server Management**: Python-based server manager (services/index.py) coordinates backend and frontend
-- **Process Coordination**: Manages both FastAPI backend and Vite frontend with automatic proxy setup
 
 ## Database Design
 - **ORM**: Drizzle ORM with PostgreSQL dialect
@@ -84,7 +81,7 @@ The project shows evidence of both Node.js and Python backend implementations:
 - **Connection Strategy**: Automatic database configuration management with persistent JSON config files
 - **Schema Extraction**: Real-time introspection of connected databases using SQL information_schema queries
 - **Multi-Database Support**: Users can configure and switch between multiple database connections
-- **Configuration Persistence**: Database credentials and extracted schemas stored in `server/config/database.json`
+- **Configuration Persistence**: Database credentials and extracted schemas stored in `backend/config/database.json`
 
 ## Authentication & Authorization
 - **Multi-Sector Login**: Predefined admin accounts for three sectors (bank, finance, ithr)
